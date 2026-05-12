@@ -29,4 +29,4 @@ This is an auto push repository for Baekjoon Online Judge created with [Baekjoon
 
 ## 🌱 Algorithm Grass
 
-![Algorithm Grass](./.static/algorithm-grass.svg)
+![Algorithm Grass](./assets/algorithm-grass.svg)

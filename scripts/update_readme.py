@@ -4,7 +4,7 @@ from datetime import datetime
 
 ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
-ASSETS = ROOT / "assets"
+ASSETS = ROOT / ".static"
 GRASS = ASSETS / "algorithm-grass.svg"
 
 PLATFORMS = ["백준", "프로그래머스"]
