@@ -27,7 +27,3 @@ This is an auto push repository for Baekjoon Online Judge created with [Baekjoon
 - `프로그래머스/1/468370. 중요한 단어를 스포 방지/중요한 단어를 스포 방지.cpp`
 - `프로그래머스/0/340203. ［PCCE 기출문제］ 5번 ／ 심폐소생술/［PCCE 기출문제］ 5번 ／ 심폐소생술.cpp`
 <!-- RECENT:END -->
-
-## 🍀 Algorithm Clover
-
-![Algorithm Clover](./assets/algorithm-clover.svg?v=2)
