@@ -132,7 +132,7 @@ def make_grass(files):
   <style>
     text {{ font-family: Arial, sans-serif; font-size: 12px; fill: #333; }}
   </style>
-  <text x="10" y="20">Algorithm Grass</text>
+  <text x="10" y="20">Algorithm Clover</text>
   {''.join(items)}
 </svg>
 '''
