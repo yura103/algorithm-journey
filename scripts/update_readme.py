@@ -129,11 +129,11 @@ def make_grass(files):
     height = rows * cell_h + 50
 
     heart_path = (
-        "Mgit rm assets/algorithm-grass.svg 0,-8 "
-        "C -10,-18 -24,-8 -14,6 "
-        "L 0,20 "
-        "L 14,6 "
-        "C 24,-8 10,-18 0,-8 Z"
+        "M 0 -10 "
+        "C -12 -22, -30 -10, -30 10 "
+        "C -30 28, -10 42, 0 50 "
+        "C 10 42, 30 28, 30 10 "
+        "C 30 -10, 12 -22, 0 -10 Z"
     )
 
     items = []
@@ -159,10 +159,10 @@ def make_grass(files):
                 leaves.append(None)
 
         leaf_positions = [
-            (x + 29, y + 10),
-            (x + 44, y + 25),
-            (x + 29, y + 40),
-            (x + 14, y + 25),
+            (x + 29, y + 8),
+            (x + 50, y + 29),
+            (x + 29, y + 50),
+            (x + 8, y + 29),
         ]
 
         rotations = [0, 90, 180, 270]
@@ -184,7 +184,7 @@ def make_grass(files):
 
             clover.append(
                 f'<path d="{heart_path}" '
-                f'transform="translate({lx},{ly}) rotate({rotation}) scale(0.5)" '
+                f'transform="translate({lx},{ly}) rotate({rotation}) scale(0.9)" '
                 f'style="fill:{color};stroke:#ffffff;stroke-width:1;" />'
             )
 
