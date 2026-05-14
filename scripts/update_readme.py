@@ -120,27 +120,32 @@ def make_grass(files):
 
     days = sorted(by_day.keys())[-35:]
 
-    cell_w = 58
-    cell_h = 58
+    cell_w = 64
+    cell_h = 64
     cols = 7
     rows = max(1, (len(days) + cols - 1) // cols)
 
     width = cols * cell_w + 20
-    height = rows * cell_h + 50
+    height = rows * cell_h + 54
 
+    # 하트의 뾰족한 끝이 (0, 0)에 있고, 둥근 부분이 위쪽에 있는 형태
+    # 이 하트를 같은 중심점에서 0/90/180/270도 회전시켜 네잎클로버를 만듦
     heart_path = (
-        "M 0 -10 "
-        "C -12 -22, -30 -10, -30 10 "
-        "C -30 28, -10 42, 0 50 "
-        "C 10 42, 30 28, 30 10 "
-        "C 30 -10, 12 -22, 0 -10 Z"
+        "M 0,0 "
+        "C -11,-11 -23,-17 -23,-30 "
+        "C -23,-45 -5,-48 0,-36 "
+        "C 5,-48 23,-45 23,-30 "
+        "C 23,-17 11,-11 0,0 Z"
     )
 
     items = []
 
     for idx, day in enumerate(days):
         x = 10 + (idx % cols) * cell_w
-        y = 35 + (idx // cols) * cell_h
+        y = 36 + (idx // cols) * cell_h
+
+        center_x = x + 32
+        center_y = y + 32
 
         lang_count = Counter(lang for _, lang in by_day[day])
 
@@ -158,15 +163,6 @@ def make_grass(files):
             while len(leaves) < 4:
                 leaves.append(None)
 
-        leaf_positions = [
-            (x + 29, y + 8),
-            (x + 50, y + 29),
-            (x + 29, y + 50),
-            (x + 8, y + 29),
-        ]
-
-        rotations = [0, 90, 180, 270]
-
         tooltip_lines = [day]
 
         for lang, count in lang_count.most_common():
@@ -176,7 +172,14 @@ def make_grass(files):
 
         clover = [f'<g><title>{tooltip}</title>']
 
-        for leaf_lang, (lx, ly), rotation in zip(leaves, leaf_positions, rotations):
+        # 줄기
+        clover.append(
+            f'<line x1="{center_x}" y1="{center_y + 8}" '
+            f'x2="{center_x}" y2="{center_y + 24}" '
+            f'style="stroke:#6D4C41;stroke-width:2;stroke-linecap:round;" />'
+        )
+
+        for leaf_lang, rotation in zip(leaves, [0, 90, 180, 270]):
             if leaf_lang is None:
                 color = "#E0E0E0"
             else:
@@ -184,15 +187,9 @@ def make_grass(files):
 
             clover.append(
                 f'<path d="{heart_path}" '
-                f'transform="translate({lx},{ly}) rotate({rotation}) scale(0.9)" '
-                f'style="fill:{color};stroke:#ffffff;stroke-width:1;" />'
+                f'transform="translate({center_x},{center_y}) rotate({rotation}) scale(0.55)" '
+                f'style="fill:{color};stroke:#ffffff;stroke-width:1.2;" />'
             )
-
-        clover.append(
-            f'<line x1="{x + 29}" y1="{y + 31}" '
-            f'x2="{x + 29}" y2="{y + 48}" '
-            f'style="stroke:#6D4C41;stroke-width:2;stroke-linecap:round;" />'
-        )
 
         clover.append("</g>")
         items.append("".join(clover))
