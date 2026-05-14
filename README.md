@@ -28,6 +28,6 @@ This is an auto push repository for Baekjoon Online Judge created with [Baekjoon
 - `프로그래머스/0/340201. ［PCCE 기출문제］ 7번 ／ 버스/［PCCE 기출문제］ 7번 ／ 버스.cpp`
 <!-- RECENT:END -->
 
-## 🌱 Algorithm Grass
+## 🍀 Algorithm Clover
 
-![Algorithm Grass](./assets/algorithm-grass.svg)
+![Algorithm Clover](./assets/algorithm-clover.svg)
