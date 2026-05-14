@@ -4,8 +4,8 @@ This is an auto push repository for Baekjoon Online Judge created with [Baekjoon
 ## 📊 풀이 현황
 
 <!-- STATS:START -->
-- 총 풀이 수: **7문제**
-- 백준: **2문제**
+- 총 풀이 수: **9문제**
+- 백준: **4문제**
 - 프로그래머스: **5문제**
 <!-- STATS:END -->
 
@@ -14,8 +14,8 @@ This is an auto push repository for Baekjoon Online Judge created with [Baekjoon
 <!-- LANG:START -->
 | Language | Count | Ratio |
 |---|---:|---:|
-| C++ | 5 | ███████ 71% |
-| Python | 2 | ██ 29% |
+| C++ | 7 | ███████ 78% |
+| Python | 2 | ██ 22% |
 <!-- LANG:END -->
 
 ## 🆕 최근 풀이
