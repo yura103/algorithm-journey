@@ -30,4 +30,4 @@ This is an auto push repository for Baekjoon Online Judge created with [Baekjoon
 
 ## 🍀 Algorithm Clover
 
-![Algorithm Clover](./assets/algorithm-clover.svg)
+![Algorithm Clover](./assets/algorithm-clover.svg?v=2)
