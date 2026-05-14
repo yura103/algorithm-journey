@@ -1,10 +1,10 @@
 # [level 2] 선인장 숨기기 - 468379 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/468379?language=python3) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/468379?language=cpp) 
 
 ### 성능 요약
 
-메모리: 160 MB, 시간: 905.67 ms
+메모리: 130 MB, 시간: 113.57 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 05월 15일 03:23:15
+2026년 05월 15일 03:34:39
 
 ### 문제 설명
 
