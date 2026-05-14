@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="468" height="118" viewBox="0 0 468 118">
-  <style>
-    text { font-family: Arial, sans-serif; font-size: 12px; fill: #333; }
-  </style>
-  <text x="10" y="20">Algorithm Clover</text>
-  <g><title>2026-05-14&#10;C++: 8문제&#10;Python: 3문제</title><line x1="42" y1="76" x2="42" y2="92" style="stroke:#6D4C41;stroke-width:2;stroke-linecap:round;" /><path d="M 0,0 C -11,-11 -23,-17 -23,-30 C -23,-45 -5,-48 0,-36 C 5,-48 23,-45 23,-30 C 23,-17 11,-11 0,0 Z" transform="translate(42,68) rotate(0) scale(0.55)" style="fill:#1B5E20;stroke:#ffffff;stroke-width:1.2;" /><path d="M 0,0 C -11,-11 -23,-17 -23,-30 C -23,-45 -5,-48 0,-36 C 5,-48 23,-45 23,-30 C 23,-17 11,-11 0,0 Z" transform="translate(42,68) rotate(90) scale(0.55)" style="fill:#1B5E20;stroke:#ffffff;stroke-width:1.2;" /><path d="M 0,0 C -11,-11 -23,-17 -23,-30 C -23,-45 -5,-48 0,-36 C 5,-48 23,-45 23,-30 C 23,-17 11,-11 0,0 Z" transform="translate(42,68) rotate(180) scale(0.55)" style="fill:#1B5E20;stroke:#ffffff;stroke-width:1.2;" /><path d="M 0,0 C -11,-11 -23,-17 -23,-30 C -23,-45 -5,-48 0,-36 C 5,-48 23,-45 23,-30 C 23,-17 11,-11 0,0 Z" transform="translate(42,68) rotate(270) scale(0.55)" style="fill:#1B5E20;stroke:#ffffff;stroke-width:1.2;" /></g>
-</svg>
