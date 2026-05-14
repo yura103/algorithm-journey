@@ -129,7 +129,7 @@ def make_grass(files):
     height = rows * cell_h + 50
 
     heart_path = (
-        "M 0,-8 "
+        "Mgit rm assets/algorithm-grass.svg 0,-8 "
         "C -10,-18 -24,-8 -14,6 "
         "L 0,20 "
         "L 14,6 "
