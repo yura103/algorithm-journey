@@ -5,47 +5,48 @@ from datetime import datetime
 ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
 ASSETS = ROOT / "assets"
-GRASS = ASSETS / "algorithm-clover.svg"
+CLOVER = ASSETS / "algorithm-clover.svg"
 
-PLATFORMS = ["백준", "프로그래머스"]
+PLATFORMS = ["백준", "프로그래머스", "LeetCode"]
 
 EXT_LANG = {
     ".py": "Python",
     ".js": "JavaScript",
     ".java": "Java",
     ".cpp": "C++",
+    ".cc": "C++",
     ".c": "C",
     ".sql": "SQL",
 }
 
-COLORS = {
-    ("백준", "Python"): "#4A90E2",
-    ("백준", "JavaScript"): "#F5A623",
-    ("백준", "Java"): "#E67E22",
-    ("백준", "C++"): "#00599C",
-    ("프로그래머스", "Python"): "#2ECC71",
-    ("프로그래머스", "JavaScript"): "#F1C40F",
-    ("프로그래머스", "SQL"): "#9B59B6",
-    ("프로그래머스", "Java"): "#E74C3C",
+LANG_PALETTES = {
+    "Python": ["#BBDEFB", "#64B5F6", "#1E88E5", "#0D47A1"],
+    "C++": ["#C8E6C9", "#81C784", "#43A047", "#1B5E20"],
+    "Java": ["#FFCDD2", "#E57373", "#E53935", "#B71C1C"],
+    "JavaScript": ["#FFF9C4", "#FFF176", "#FDD835", "#F57F17"],
+    "SQL": ["#E1BEE7", "#BA68C8", "#8E24AA", "#4A148C"],
+    "C": ["#CFD8DC", "#90A4AE", "#546E7A", "#263238"],
 }
-
-DEFAULT_COLOR = "#95A5A6"
 
 
 def solution_files():
     files = []
+
     for platform in PLATFORMS:
         base = ROOT / platform
+
         if base.exists():
             for file in base.rglob("*"):
                 if file.is_file() and file.suffix in EXT_LANG:
                     files.append(file)
+
     return files
 
 
 def replace_section(text, start, end, content):
     if start not in text or end not in text:
         return text
+
     return text.split(start)[0] + start + "\n" + content + "\n" + end + text.split(end)[1]
 
 
@@ -56,11 +57,11 @@ def make_stats(files):
         relative = file.relative_to(ROOT)
         platform_count[relative.parts[0]] += 1
 
-    lines = [
-        f"- 총 풀이 수: **{len(files)}문제**",
-        f"- 백준: **{platform_count['백준']}문제**",
-        f"- 프로그래머스: **{platform_count['프로그래머스']}문제**",
-    ]
+    lines = [f"- 총 풀이 수: **{len(files)}문제**"]
+
+    for platform in PLATFORMS:
+        if platform_count[platform] > 0:
+            lines.append(f"- {platform}: **{platform_count[platform]}문제**")
 
     return "\n".join(lines)
 
@@ -98,35 +99,103 @@ def make_recent(files):
     return "\n".join(f"- `{file.relative_to(ROOT)}`" for file in recent)
 
 
+def color_by_intensity(lang, count):
+    colors = LANG_PALETTES.get(
+        lang,
+        ["#ECEFF1", "#B0BEC5", "#78909C", "#455A64"]
+    )
+
+    return colors[min(count, 4) - 1]
+
+
 def make_grass(files):
     ASSETS.mkdir(exist_ok=True)
 
-    sorted_files = sorted(files, key=lambda f: f.stat().st_mtime)
-    cell = 14
-    gap = 4
-    cols = 20
-    rows = 7
+    by_day = defaultdict(list)
 
-    width = cols * (cell + gap) + 20
-    height = rows * (cell + gap) + 50
+    for file in files:
+        day = datetime.fromtimestamp(file.stat().st_mtime).strftime("%Y-%m-%d")
+        lang = EXT_LANG[file.suffix]
+        by_day[day].append((file, lang))
+
+    days = sorted(by_day.keys())[-35:]
+
+    cell_w = 58
+    cell_h = 58
+    cols = 7
+    rows = max(1, (len(days) + cols - 1) // cols)
+
+    width = cols * cell_w + 20
+    height = rows * cell_h + 50
+
+    heart_path = (
+        "M 0,-8 "
+        "C -10,-18 -24,-8 -14,6 "
+        "L 0,20 "
+        "L 14,6 "
+        "C 24,-8 10,-18 0,-8 Z"
+    )
 
     items = []
 
-    for idx, file in enumerate(sorted_files[-cols * rows:]):
-        relative = file.relative_to(ROOT)
-        platform = relative.parts[0]
-        lang = EXT_LANG[file.suffix]
+    for idx, day in enumerate(days):
+        x = 10 + (idx % cols) * cell_w
+        y = 35 + (idx // cols) * cell_h
 
-        x = 10 + (idx // rows) * (cell + gap)
-        y = 35 + (idx % rows) * (cell + gap)
+        lang_count = Counter(lang for _, lang in by_day[day])
 
-        color = COLORS.get((platform, lang), DEFAULT_COLOR)
-        title = f"{relative} / {lang}"
+        if len(lang_count) == 1:
+            only_lang = next(iter(lang_count))
+            leaves = [only_lang] * 4
+        else:
+            leaves = []
 
-        items.append(
-            f'<rect x="{x}" y="{y}" width="{cell}" height="{cell}" rx="3" fill="{color}">'
-            f'<title>{title}</title></rect>'
+            for lang, count in lang_count.most_common():
+                leaves.extend([lang] * count)
+
+            leaves = leaves[:4]
+
+            while len(leaves) < 4:
+                leaves.append(None)
+
+        leaf_positions = [
+            (x + 29, y + 10),
+            (x + 44, y + 25),
+            (x + 29, y + 40),
+            (x + 14, y + 25),
+        ]
+
+        rotations = [0, 90, 180, 270]
+
+        tooltip_lines = [day]
+
+        for lang, count in lang_count.most_common():
+            tooltip_lines.append(f"{lang}: {count}문제")
+
+        tooltip = "&#10;".join(tooltip_lines)
+
+        clover = [f'<g><title>{tooltip}</title>']
+
+        for leaf_lang, (lx, ly), rotation in zip(leaves, leaf_positions, rotations):
+            if leaf_lang is None:
+                color = "#E0E0E0"
+            else:
+                color = color_by_intensity(leaf_lang, lang_count[leaf_lang])
+
+            clover.append(
+                f'<path d="{heart_path}" '
+                f'transform="translate({lx},{ly}) rotate({rotation}) scale(0.5)" '
+                f'style="fill:{color};stroke:#ffffff;stroke-width:1;" />'
+            )
+
+        clover.append(
+            f'<line x1="{x + 29}" y1="{y + 31}" '
+            f'x2="{x + 29}" y2="{y + 48}" '
+            f'style="stroke:#6D4C41;stroke-width:2;stroke-linecap:round;" />'
         )
+
+        clover.append("</g>")
+        items.append("".join(clover))
 
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">
   <style>
@@ -137,7 +206,7 @@ def make_grass(files):
 </svg>
 '''
 
-    GRASS.write_text(svg, encoding="utf-8")
+    CLOVER.write_text(svg, encoding="utf-8")
 
 
 files = solution_files()
